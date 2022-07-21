@@ -9,7 +9,7 @@ const result = ref('');
 
 const op = ref(0);
 
-function onOperandUpdate(operand, options) {
+function operandUpdateHandler(operand, options) {
   op.value = +operand || 0;
   if (options && options.reset) {
     history.value = '';
@@ -21,7 +21,7 @@ function onOperandUpdate(operand, options) {
   if (operand.endsWith('.')) operation.value += '.0';
 }
 
-function onOperation(operator) {
+function operationHandler(operator) {
   history.value += op.value + operator;
   op.value = 0;
   operation.value = history.value + op.value;
@@ -31,7 +31,10 @@ function onOperation(operator) {
 <template>
   <div class="calculator light">
     <Monitor :operation="operation" :result="result" />
-    <Keyboard @operand-update="onOperandUpdate" @operation="onOperation" />
+    <Keyboard
+      @operand-update="operandUpdateHandler"
+      @operation="operationHandler"
+    />
   </div>
 </template>
 
