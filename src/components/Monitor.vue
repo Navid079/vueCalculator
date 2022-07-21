@@ -12,11 +12,13 @@ const props = defineProps({
 .monitor {
   background-color: aquamarine;
   width: 70%;
-  height: 4rem;
+  height: 10%;
   border-radius: 1.25rem;
   padding: 1rem;
-  font-size: 3rem;
-  text-align: right;
+  font-size: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
   user-select: none;
 }
 </style>
