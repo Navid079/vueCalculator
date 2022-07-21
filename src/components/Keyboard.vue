@@ -4,7 +4,8 @@ import Key from './Key.vue';
 
 const emit = defineEmits(['operation', 'submit', 'operandUpdate']);
 
-let operand = ref('');
+const operand = ref('');
+const memory = ref(0);
 
 function handleNumKeys(num) {
   if (operand.value !== '') {
@@ -30,10 +31,19 @@ function handleOperatorKeys(num) {
 <template>
   <div class="keyboard">
     <div class="keyboard-row">
-      <Key :is-half="true" text="MC" />
-      <Key :is-half="true" text="M-" />
-      <Key :is-half="true" text="M+" />
-      <Key :is-half="true" text="M" />
+      <Key :is-half="true" text="MC" @click="() => (memory = 0)" />
+      <Key :is-half="true" text="M-" @click="() => (memory -= operand)" />
+      <Key :is-half="true" text="M+" @click="() => (memory += operand)" />
+      <Key
+        :is-half="true"
+        text="M"
+        @click="
+          () => {
+            operand = memory.toString();
+            emit('operandUpdate', operand);
+          }
+        "
+      />
     </div>
     <div class="keyboard-row">
       <Key text="AC" @click="handleNumKeys" />
