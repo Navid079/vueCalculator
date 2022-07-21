@@ -1,29 +1,26 @@
-# vue-calculator
+# Vue Calculator
 
-This template should help get you started developing with Vue 3 in Vite.
+A simple calculator in Vue.js
 
-## Recommended IDE Setup
+## Summary
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+Vue Calculator is a simple calculator using Vue.js Framework by [Navid079](https://www.github.com/Navid079)  
+Features:
+- Addition
+- Subtraction
+- Multiplication
+- Division
+- Percent
+- Memory
+- Dark Mode
 
-## Customize configuration
+Note that the calculator respects the "Order of Operators".  
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+## Visit App
 
-## Project Setup
+[Click here](http://navid079.github.io/vueCalculator) to visit Vue Calculator online.
 
-```sh
-npm install
-```
+## References
 
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
+Design by sadekui Figma Page: [sadekui](https://www.figma.com/@sadekui)  
+Link to design: [figma.com/file/Eu0bhJUfAM2Dx...](https://www.figma.com/file/Eu0bhJUfAM2DxKwEJjt0cW/Calculator-App-Ui-Design-Download-Free-(Community))
