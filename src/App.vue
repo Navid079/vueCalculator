@@ -121,7 +121,7 @@ function modeChangeHandler() {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: black;
+  background-color: #bbb;
   width: 100vw;
   height: 100vh;
 }
@@ -141,9 +141,32 @@ function modeChangeHandler() {
   border-radius: 40px;
   background-color: #f7f8fb;
   backdrop-filter: blur(102px);
+
+  outline: 1rem solid black;
+  overflow: hidden;
+}
+
+.calculator::before {
+  content: '';
+  color: white;
+  display: block;
+  width: 3rem;
+  height: 3rem;
+  background-color: black;
+  border-bottom-left-radius: 100%;
+  border-bottom-right-radius: 100%;
+  position: absolute;
+  top: -1rem;
 }
 
 .calculator.dark {
   background-color: #17181a;
+
+  outline: 1rem solid goldenrod;
 }
+
+.calculator.dark::before {
+  background-color: goldenrod;
+}
+
 </style>
