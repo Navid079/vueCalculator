@@ -4,24 +4,34 @@ import Monitor from './components/Monitor.vue';
 import Keyboard from './components/Keyboard.vue';
 
 const history = ref('');
-const operation = ref('');
+const operation = ref('0');
 const result = ref('');
 
-const op1 = ref(0);
-const op2 = ref(0);
+const op = ref(0);
 
-function onOperandUpdate(operand) {
-  op1.value = +operand;
-  console.log(op1.value);
-  operation.value = history.value + op1.value;
+function onOperandUpdate(operand, options) {
+  op.value = +operand || 0;
+  if (options && options.reset) {
+    history.value = '';
+    operation.value = '0';
+    result.value = '';
+    op.value = 0;
+  }
+  operation.value = history.value + op.value;
   if (operand.endsWith('.')) operation.value += '.0';
+}
+
+function onOperation(operator) {
+  history.value += op.value + operator;
+  op.value = 0;
+  operation.value = history.value + op.value;
 }
 </script>
 
 <template>
   <div class="calculator light">
     <Monitor :operation="operation" :result="result" />
-    <Keyboard @operand-update="onOperandUpdate" />
+    <Keyboard @operand-update="onOperandUpdate" @operation="onOperation" />
   </div>
 </template>
 

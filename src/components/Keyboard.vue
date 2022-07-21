@@ -4,28 +4,26 @@ import Key from './Key.vue';
 
 const emit = defineEmits(['operation', 'submit', 'operandUpdate']);
 
-const operand = ref('');
+const operand = ref('0');
 const memory = ref(0);
 
 function handleNumKeys(num) {
-  if (operand.value !== '') {
-    if (num === '<-') {
-      operand.value = operand.value.slice(0, -1);
-      return emit('operandUpdate', operand.value, { reset: true });
-    }
-    if (num === 'AC') {
-      operand.value = '';
-      return emit('operandUpdate', operand.value, { reset: true });
-    }
+  if (num === 'AC') {
+    operand.value = '';
+    return emit('operandUpdate', operand.value, { reset: true });
   }
+  if (num === '<-' && operand.value !== '') {
+    operand.value = operand.value.slice(0, -1);
+    return emit('operandUpdate', operand.value);
+  } else if (num === '<-') return;
   if (num === '.' && operand.value.includes('.')) return;
   operand.value += num;
   emit('operandUpdate', operand.value);
 }
 
-function handleOperatorKeys(num) {
-  emit('operation', num);
-  operand = '';
+function handleOperatorKeys(operator) {
+  emit('operation', operator);
+  operand.value = '';
 }
 </script>
 
