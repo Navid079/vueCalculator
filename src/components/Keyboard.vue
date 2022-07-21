@@ -11,11 +11,12 @@ function handleNumKeys(num) {
   if (operand.value !== '') {
     if (num === '<-') {
       operand.value = operand.value.slice(0, -1);
+      return emit('operandUpdate', operand.value, { reset: true });
     }
     if (num === 'AC') {
       operand.value = '';
+      return emit('operandUpdate', operand.value, { reset: true });
     }
-    return emit('operandUpdate', operand.value, { reset: true });
   }
   if (num === '.' && operand.value.includes('.')) return;
   operand.value += num;

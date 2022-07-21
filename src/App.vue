@@ -3,14 +3,25 @@ import { ref } from 'vue';
 import Monitor from './components/Monitor.vue';
 import Keyboard from './components/Keyboard.vue';
 
-const operation = ref('6000/2+3227*2')
-const result = ref("=12,454");
+const history = ref('');
+const operation = ref('');
+const result = ref('');
+
+const op1 = ref(0);
+const op2 = ref(0);
+
+function onOperandUpdate(operand) {
+  op1.value = +operand;
+  console.log(op1.value);
+  operation.value = history.value + op1.value;
+  if (operand.endsWith('.')) operation.value += '.0';
+}
 </script>
 
 <template>
   <div class="calculator light">
     <Monitor :operation="operation" :result="result" />
-    <Keyboard />
+    <Keyboard @operand-update="onOperandUpdate" />
   </div>
 </template>
 
@@ -44,7 +55,7 @@ const result = ref("=12,454");
 }
 
 .calculator.light {
-  background-color: #F7F8FB;
+  background-color: #f7f8fb;
   backdrop-filter: blur(102px);
 }
 </style>
