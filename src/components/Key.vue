@@ -11,7 +11,7 @@ const emits = defineEmits(['click']);
 
 <template>
   <button
-    @click="e => emits('click', e)"
+    @click="() => emits('click', props.text)"
     :class="{
       key: true,
       half: props.isHalf,
@@ -36,6 +36,7 @@ const emits = defineEmits(['click']);
   backdrop-filter: blur(1.2vmin);
   border-radius: 16px;
   color: #38b9ff;
+  cursor: pointer;
 }
 
 .half {

@@ -1,5 +1,30 @@
 <script setup>
+import { ref } from 'vue';
 import Key from './Key.vue';
+
+const emit = defineEmits(['operation', 'submit', 'operandUpdate']);
+
+let operand = ref('');
+
+function handleNumKeys(num) {
+  if (operand.value !== '') {
+    if (num === '<-') {
+      operand.value = operand.value.slice(0, -1);
+    }
+    if (num === 'AC') {
+      operand.value = '';
+    }
+    return emit('operandUpdate', operand.value, { reset: true });
+  }
+  if (num === '.' && operand.value.includes('.')) return;
+  operand.value += num;
+  emit('operandUpdate', operand.value);
+}
+
+function handleOperatorKeys(num) {
+  emit('operation', num);
+  operand = '';
+}
 </script>
 
 <template>
@@ -11,34 +36,34 @@ import Key from './Key.vue';
       <Key :is-half="true" text="M" />
     </div>
     <div class="keyboard-row">
-      <Key text="AC" />
-      <Key text="<-" />
-      <Key text="/" :is-command="true" />
-      <Key text="*" :is-command="true" />
+      <Key text="AC" @click="handleNumKeys" />
+      <Key text="<-" @click="handleNumKeys" />
+      <Key text="/" :is-command="true" @click="handleOperatorKeys" />
+      <Key text="*" :is-command="true" @click="handleOperatorKeys" />
     </div>
     <div class="keyboard-row">
-      <Key text="7" />
-      <Key text="8" />
-      <Key text="9" />
-      <Key text="-" :is-command="true" />
+      <Key text="7" @click="handleNumKeys" />
+      <Key text="8" @click="handleNumKeys" />
+      <Key text="9" @click="handleNumKeys" />
+      <Key text="-" :is-command="true" @click="handleOperatorKeys" />
     </div>
     <div class="keyboard-row">
-      <Key text="4" />
-      <Key text="5" />
-      <Key text="6" />
-      <Key text="+" :is-command="true" />
+      <Key text="4" @click="handleNumKeys" />
+      <Key text="5" @click="handleNumKeys" />
+      <Key text="6" @click="handleNumKeys" />
+      <Key text="+" :is-command="true" @click="handleOperatorKeys" />
     </div>
     <div class="keyboard-row">
-      <Key text="1" />
-      <Key text="2" />
-      <Key text="3" />
-      <Key text="%" :is-command="true" />
+      <Key text="1" @click="handleNumKeys" />
+      <Key text="2" @click="handleNumKeys" />
+      <Key text="3" @click="handleNumKeys" />
+      <Key text="%" :is-command="true" @click="handleOperatorKeys" />
     </div>
     <div class="keyboard-row">
-      <Key text="0" />
-      <Key text="." />
-      <Key text="^" :is-command="true" />
-      <Key text="=" :is-submit="true" />
+      <Key text="0" @click="handleNumKeys" />
+      <Key text="." @click="handleNumKeys" />
+      <Key text="^" :is-command="true" @click="handleOperatorKeys" />
+      <Key text="=" :is-submit="true" @click="() => emit('submit')" />
     </div>
   </div>
 </template>
