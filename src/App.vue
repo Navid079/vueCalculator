@@ -40,11 +40,11 @@ const result = ref("=12,454");
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  border-radius: 40px;
 }
 
 .calculator.light {
   background-color: #F7F8FB;
-  backdrop-filter: 102px;
-  border-radius: 40px;
+  backdrop-filter: blur(102px);
 }
 </style>

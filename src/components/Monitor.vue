@@ -18,7 +18,7 @@ const props = defineProps({
 
 <style>
 .monitor {
-  height: 33vmin;
+  height: 23vmin;
   width: 100%;
   font-size: 3rem;
   padding: 10.2vmin 1rem 0 1rem;
