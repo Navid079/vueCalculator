@@ -2,10 +2,19 @@
 import { ref } from 'vue';
 import Key from './Key.vue';
 
-const emit = defineEmits(['operation', 'submit', 'operandUpdate']);
+const props = defineProps({ isDark: Boolean });
+
+const emit = defineEmits([
+  'operation',
+  'submit',
+  'operandUpdate',
+  'modeChange',
+]);
 
 const operand = ref('0');
 const memory = ref(0);
+const modeKey = ref(null)
+const mode = ref('D')
 
 function handleNumKeys(num) {
   if (num === 'AC') {
@@ -25,15 +34,36 @@ function handleOperatorKeys(operator) {
   emit('operation', operator);
   operand.value = '';
 }
+
+function handleMode() {
+  mode.value = mode.value === 'D' ? 'L' : 'D';
+  emit('modeChange');
+}
 </script>
 
 <template>
   <div class="keyboard">
     <div class="keyboard-row">
-      <Key :is-half="true" text="MC" @click="() => (memory = 0)" />
-      <Key :is-half="true" text="M-" @click="() => (memory -= operand)" />
-      <Key :is-half="true" text="M+" @click="() => (memory += operand)" />
       <Key
+        :is-dark="props.isDark"
+        :is-half="true"
+        text="MC"
+        @click="() => (memory = 0)"
+      />
+      <Key
+        :is-dark="props.isDark"
+        :is-half="true"
+        text="M-"
+        @click="() => (memory -= operand)"
+      />
+      <Key
+        :is-dark="props.isDark"
+        :is-half="true"
+        text="M+"
+        @click="() => (memory += operand)"
+      />
+      <Key
+        :is-dark="props.isDark"
         :is-half="true"
         text="M"
         @click="
@@ -45,34 +75,70 @@ function handleOperatorKeys(operator) {
       />
     </div>
     <div class="keyboard-row">
-      <Key text="AC" @click="handleNumKeys" />
-      <Key text="<-" @click="handleNumKeys" />
-      <Key text="/" :is-command="true" @click="handleOperatorKeys" />
-      <Key text="*" :is-command="true" @click="handleOperatorKeys" />
+      <Key :is-dark="props.isDark" text="AC" @click="handleNumKeys" />
+      <Key :is-dark="props.isDark" text="<-" @click="handleNumKeys" />
+      <Key
+        :is-dark="props.isDark"
+        text="/"
+        :is-command="true"
+        @click="handleOperatorKeys"
+      />
+      <Key
+        :is-dark="props.isDark"
+        text="*"
+        :is-command="true"
+        @click="handleOperatorKeys"
+      />
     </div>
     <div class="keyboard-row">
-      <Key text="7" @click="handleNumKeys" />
-      <Key text="8" @click="handleNumKeys" />
-      <Key text="9" @click="handleNumKeys" />
-      <Key text="-" :is-command="true" @click="handleOperatorKeys" />
+      <Key :is-dark="props.isDark" text="7" @click="handleNumKeys" />
+      <Key :is-dark="props.isDark" text="8" @click="handleNumKeys" />
+      <Key :is-dark="props.isDark" text="9" @click="handleNumKeys" />
+      <Key
+        :is-dark="props.isDark"
+        text="-"
+        :is-command="true"
+        @click="handleOperatorKeys"
+      />
     </div>
     <div class="keyboard-row">
-      <Key text="4" @click="handleNumKeys" />
-      <Key text="5" @click="handleNumKeys" />
-      <Key text="6" @click="handleNumKeys" />
-      <Key text="+" :is-command="true" @click="handleOperatorKeys" />
+      <Key :is-dark="props.isDark" text="4" @click="handleNumKeys" />
+      <Key :is-dark="props.isDark" text="5" @click="handleNumKeys" />
+      <Key :is-dark="props.isDark" text="6" @click="handleNumKeys" />
+      <Key
+        :is-dark="props.isDark"
+        text="+"
+        :is-command="true"
+        @click="handleOperatorKeys"
+      />
     </div>
     <div class="keyboard-row">
-      <Key text="1" @click="handleNumKeys" />
-      <Key text="2" @click="handleNumKeys" />
-      <Key text="3" @click="handleNumKeys" />
-      <Key text="%" :is-command="true" @click="handleOperatorKeys" />
+      <Key :is-dark="props.isDark" text="1" @click="handleNumKeys" />
+      <Key :is-dark="props.isDark" text="2" @click="handleNumKeys" />
+      <Key :is-dark="props.isDark" text="3" @click="handleNumKeys" />
+      <Key
+        :is-dark="props.isDark"
+        text="%"
+        :is-command="true"
+        @click="handleOperatorKeys"
+      />
     </div>
     <div class="keyboard-row">
-      <Key text="0" @click="handleNumKeys" />
-      <Key text="." @click="handleNumKeys" />
-      <Key text="^" :is-command="true" @click="handleOperatorKeys" />
-      <Key text="=" :is-submit="true" @click="() => emit('submit')" />
+      <Key :is-dark="props.isDark" text="0" @click="handleNumKeys" />
+      <Key :is-dark="props.isDark" text="." @click="handleNumKeys" />
+      <Key
+        :is-dark="props.isDark"
+        ref="modeKey"
+        :text="mode"
+        :is-command="true"
+        @click="handleMode"
+      />
+      <Key
+        :is-dark="props.isDark"
+        text="="
+        :is-submit="true"
+        @click="() => emit('submit')"
+      />
     </div>
   </div>
 </template>

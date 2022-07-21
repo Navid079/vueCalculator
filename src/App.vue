@@ -6,8 +6,9 @@ import Keyboard from './components/Keyboard.vue';
 const history = ref('');
 const operation = ref('0');
 const result = ref('');
-
 const op = ref(0);
+
+const darkMode = ref(false);
 
 function operandUpdateHandler(operand, options) {
   op.value = +operand || 0;
@@ -86,16 +87,22 @@ function submitHandler() {
   res = Math.round(res * 10000) / 10000;
   result.value = `=${res}`;
 }
+
+function modeChangeHandler() {
+  darkMode.value = !darkMode.value;
+}
 </script>
 
 <template>
-  <div class="page dark">
-    <div class="calculator dark">
-      <Monitor :operation="operation" :result="result" />
+  <div :class="{ page: 'true', dark: darkMode }">
+    <div :class="{ calculator: true, dark: darkMode }">
+      <Monitor :operation="operation" :result="result" :is-dark="darkMode" />
       <Keyboard
         @operand-update="operandUpdateHandler"
         @operation="operationHandler"
         @submit="submitHandler"
+        @mode-change="modeChangeHandler"
+        :is-dark="darkMode"
       />
     </div>
   </div>

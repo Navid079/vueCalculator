@@ -2,15 +2,16 @@
 const props = defineProps({
   operation: String,
   result: String,
+  isDark: Boolean,
 });
 </script>
 
 <template>
   <div class="monitor">
-    <div class="operation-container">
+    <div class="operation-container scrollbar">
       {{ props.operation }}
     </div>
-    <div class="result-container dark">
+    <div :class="{ 'result-container': true, dark: isDark, scrollbar: true }">
       {{ props.result }}
     </div>
   </div>
@@ -48,11 +49,11 @@ const props = defineProps({
   color: white;
 }
 
-.result-container::-webkit-scrollbar {
+.scrollbar::-webkit-scrollbar {
   display: none;
 }
 
-.result-container {
+.scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }

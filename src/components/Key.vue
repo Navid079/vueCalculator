@@ -4,6 +4,7 @@ const props = defineProps({
   isHalf: Boolean,
   isCommand: Boolean,
   isSubmit: Boolean,
+  isDark: Boolean
 });
 
 const emits = defineEmits(['click']);
@@ -14,7 +15,7 @@ const emits = defineEmits(['click']);
     @click="() => emits('click', props.text)"
     :class="{
       key: true,
-      dark: true,
+      dark: props.isDark,
       half: props.isHalf,
       command: props.isCommand,
       submit: props.isSubmit,
