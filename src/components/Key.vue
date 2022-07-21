@@ -14,6 +14,7 @@ const emits = defineEmits(['click']);
     @click="() => emits('click', props.text)"
     :class="{
       key: true,
+      dark: true,
       half: props.isHalf,
       command: props.isCommand,
       submit: props.isSubmit,
@@ -39,6 +40,12 @@ const emits = defineEmits(['click']);
   cursor: pointer;
 }
 
+.key.dark {
+  background-color: #303136;
+  border-color: black;
+  color: #29a8ff;
+}
+
 .half {
   height: 4vmin;
 }
@@ -48,10 +55,20 @@ const emits = defineEmits(['click']);
   font-weight: bolder;
 }
 
+.key.command.dark {
+  background-color: #005db2;
+}
+
 .submit {
   background-color: #19acff;
   box-shadow: -9px 13px 23px rgba(0, 163, 255, 0.65),
     inset -3px 4px 11px #b0dfff;
   color: #b2daff;
+}
+
+.key.submit.dark {
+  background-color: #1991ff;
+  box-shadow: none;
+  color: #b2daff
 }
 </style>

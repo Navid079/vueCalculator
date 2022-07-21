@@ -73,7 +73,7 @@ function submitHandler() {
           calculateOneStep(operandStack, operatorStack);
         }
       }
-      console.log('Pushing operator...')
+      console.log('Pushing operator...');
       operatorStack.push(letter);
       number = '';
     }
@@ -82,20 +82,22 @@ function submitHandler() {
   while (operatorStack.length > 0)
     calculateOneStep(operandStack, operatorStack);
 
-  let res = operandStack.pop()
-  res = Math.round(res * 10000) / 10000
+  let res = operandStack.pop();
+  res = Math.round(res * 10000) / 10000;
   result.value = `=${res}`;
 }
 </script>
 
 <template>
-  <div class="calculator light">
-    <Monitor :operation="operation" :result="result" />
-    <Keyboard
-      @operand-update="operandUpdateHandler"
-      @operation="operationHandler"
-      @submit="submitHandler"
-    />
+  <div class="page dark">
+    <div class="calculator dark">
+      <Monitor :operation="operation" :result="result" />
+      <Keyboard
+        @operand-update="operandUpdateHandler"
+        @operation="operationHandler"
+        @submit="submitHandler"
+      />
+    </div>
   </div>
 </template>
 
@@ -108,13 +110,17 @@ function submitHandler() {
   box-sizing: border-box;
 }
 
-#app {
+.page {
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: black;
   width: 100vw;
   height: 100vh;
+}
+
+.page.dark {
+  background-color: #777;
 }
 
 .calculator {
@@ -126,10 +132,11 @@ function submitHandler() {
   justify-content: space-between;
   align-items: center;
   border-radius: 40px;
-}
-
-.calculator.light {
   background-color: #f7f8fb;
   backdrop-filter: blur(102px);
+}
+
+.calculator.dark {
+  background-color: #17181a;
 }
 </style>

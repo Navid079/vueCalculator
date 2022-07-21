@@ -10,7 +10,7 @@ const props = defineProps({
     <div class="operation-container">
       {{ props.operation }}
     </div>
-    <div class="result-container">
+    <div class="result-container dark">
       {{ props.result }}
     </div>
   </div>
@@ -42,6 +42,10 @@ const props = defineProps({
   line-height: 6.8vmin;
   color: #424242;
   overflow-x: scroll;
+}
+
+.result-container.dark {
+  color: white;
 }
 
 .result-container::-webkit-scrollbar {
