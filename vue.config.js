@@ -1,3 +1,3 @@
 module.exports = {
-  publicPath: process.env.NODE_ENV === "production" ? "/vue-calculator/" : "/",
+  publicPath: process.env.NODE_ENV === "production" ? "/vueCalculator/" : "/",
 };
