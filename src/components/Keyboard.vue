@@ -6,9 +6,7 @@
 
 <style>
 .keyboard {
-  height: 70%;
-  width: 70%;
-  background-color: burlywood;
+  height: 48.2vmin;
   border-radius: 1.25rem;
 }
 </style>
