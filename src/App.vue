@@ -22,9 +22,69 @@ function operandUpdateHandler(operand, options) {
 }
 
 function operationHandler(operator) {
-  history.value += op.value + operator;
-  op.value = 0;
+  if (operator === '%') {
+    op.value /= 100;
+  } else {
+    history.value += op.value + operator;
+    op.value = 0;
+  }
   operation.value = history.value + op.value;
+}
+
+function calculateOneStep(operands, operators) {
+  const op2 = operands.pop();
+  const op1 = operands.pop();
+  const operation = operators.pop();
+
+  console.log(`calculating ${op1} ${operation} ${op2}`);
+
+  switch (operation) {
+    case '+':
+      operands.push(op1 + op2);
+      break;
+    case '-':
+      operands.push(op1 - op2);
+      break;
+    case '*':
+      operands.push(op1 * op2);
+      break;
+    case '/':
+      operands.push(op1 / op2);
+      break;
+  }
+}
+
+function submitHandler() {
+  let number = '';
+  const operandStack = [];
+  const operatorStack = [];
+  for (let letter of operation.value) {
+    if ('0123456789.'.includes(letter)) number += letter;
+    else {
+      console.log(`Number ${+number} found! Pushing...`);
+      console.log(`Operator ${letter} found!`);
+      operandStack.push(+number);
+      if (operatorStack.length > 0) {
+        const lastOperator = operatorStack[operatorStack.length - 1];
+        if ('+-'.includes(lastOperator) && '*/'.includes(letter)) {
+          console.log(`New operator precedes!`);
+        } else {
+          console.log(`New operator doesn't precede. Calculating:`);
+          calculateOneStep(operandStack, operatorStack);
+        }
+      }
+      console.log('Pushing operator...')
+      operatorStack.push(letter);
+      number = '';
+    }
+  }
+  operandStack.push(+number);
+  while (operatorStack.length > 0)
+    calculateOneStep(operandStack, operatorStack);
+
+  let res = operandStack.pop()
+  res = Math.round(res * 10000) / 10000
+  result.value = `=${res}`;
 }
 </script>
 
@@ -34,6 +94,7 @@ function operationHandler(operator) {
     <Keyboard
       @operand-update="operandUpdateHandler"
       @operation="operationHandler"
+      @submit="submitHandler"
     />
   </div>
 </template>

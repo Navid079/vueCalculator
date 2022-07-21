@@ -41,5 +41,15 @@ const props = defineProps({
   font-size: 6.5vmin;
   line-height: 6.8vmin;
   color: #424242;
+  overflow-x: scroll;
+}
+
+.result-container::-webkit-scrollbar {
+  display: none;
+}
+
+.result-container {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 </style>
